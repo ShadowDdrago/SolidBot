@@ -52,6 +52,7 @@ async def on_ready():
                 print(ex)
 @bot.event
 async def on_member_join(member: disnake.Member):
+    role = disnake.utils.get(member.guild.roles, name='Не верифициорванный')
     try:
         db = pymysql.connect(**config)
         try:
@@ -67,4 +68,5 @@ async def on_member_join(member: disnake.Member):
     except Exception as ex : 
         print("Bad2")
         print(ex)
+    await member.add_roles(role)
 bot.run(TOKEN)
