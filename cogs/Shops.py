@@ -1,7 +1,6 @@
 import pymysql.cursors
 import ast
 import pymysql
-import mysql
 import disnake
 from disnake import *
 from disnake.ext import commands
@@ -22,7 +21,7 @@ class Shops(commands.Cog):
     async def market(self, inter: disnake.AppCmdInter):        
         shops = disnake.Embed(color=0x303136)
         fp = io.BytesIO()
-        shop = Image.open('assets\sources\Solid.png')
+        shop = Image.open('/home/container/SolidBot/assets/sources/Solid.png')
         shop.save(fp=fp,format ='PNG')
         fp.seek(0)
         shop.close()
