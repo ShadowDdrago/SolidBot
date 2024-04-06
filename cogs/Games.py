@@ -4,11 +4,11 @@ import asyncpg
 from disnake.ext import commands
 from disnake import member, Button, ButtonStyle
 from disnake.ui import *
-import os
+
 import ast
-import time 
+
 import pymysql
-import random
+
 from confi import config
 class Game(commands.Cog):
     def __init__(self, bot) -> None:

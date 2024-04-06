@@ -11,7 +11,8 @@ from easy_pil import Editor, Canvas, Font, font
 import pymysql
 import requests
 from confi import config, host, passwd , port
-
+from mcipc.rcon.je import Client as cl
+from mcipc.rcon.je.commands import ban
 class Mod(commands.Cog): 
     def __init__(self, bot) :
         self.bot = bot
@@ -47,7 +48,7 @@ class Mod(commands.Cog):
         except Exception as ex:
             print("Bad")
             print(ex)
-        client = cl(host = host, port = port, passwd=passwd) 
+        client = cl(host, port, passwd) 
         client.connect(login= True)      
         client.ban(player=f"{ban_member}", reason = f"{reason}")
         client.close()
