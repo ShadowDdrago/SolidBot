@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 import requests
 from confi import config
 class Shops(commands.Cog):
-    def __init__(self, bot: commands.Bot) -> None:
+    def __init__(self, bot: commands.Bot) -> None:      
         self.bot = bot
     
     @commands.command(auto_sync=True)
@@ -33,7 +33,7 @@ class Shops(commands.Cog):
         member = inter.author
         custom = inter.component.custom_id
         if custom == "wardrobe":
-            emojis = disnake.Emoji(id = "<a:zdot:1125146314607431701>")
+            emojis = disnake.utils.get(self.bot.guilds[0].emojis, name='zdot')
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**", value=f"<a:zdot:1125146314607431701> Туманность \n {emojis} Неко тян" )
             await inter.send(embed = wardrobe_embed, ephemeral=True)
