@@ -40,8 +40,8 @@ class Mod(commands.Cog):
             db = pymysql.connect(**config)
             try:
                 with db.cursor() as cursor:
-                    cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET warns = %s WHERE member_id = %s", (2, member.id))
-                    ban_member = cursor.execute("SELECT member_id FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", str(member.id))[1]
+                    cursor.execute("UPDATE `s168073_members`.`members` SET warns = %s WHERE member_id = %s", (2, member.id))
+                    ban_member = cursor.execute("SELECT member_id FROM `s168073_members`.`members` WHERE member_id = %s ", str(member.id))[1]
                     db.commit()                
             finally:
                 db.close()
@@ -144,14 +144,14 @@ class Mod(commands.Cog):
             db = pymysql.connect(**config)
             try:
                 with db.cursor() as cursor:
-                    cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE  member_id = %s", member.id)
+                    cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE  member_id = %s", member.id)
                     user = cursor.fetchall()[0]
-                    warns = user[7]
-                    cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET warns = %s WHERE member_id = %s", (warns+1, member.id))
+                    warns = user[8]
+                    cursor.execute("UPDATE `s168073_members`.`members` SET warns = %s WHERE member_id = %s", (warns+1, member.id))
                     db.commit()
-                    cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE  member_id = %s", member.id)
+                    cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE  member_id = %s", member.id)
                     user = cursor.fetchall()[0]
-                    warns = user[7]
+                    warns = user[8]
                     await inter.response.defer()
                     link = str(member.display_avatar)
                     filename = f"{member.name}.png"
@@ -159,7 +159,7 @@ class Mod(commands.Cog):
                     open(filename, "wb").write(r.content)
                     if warns == 3:
                         await member.ban()
-                        cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET warns = %s WHERE member_id = %s", (2, member.id))
+                        cursor.execute("UPDATE `s168073_members`.`members` SET warns = %s WHERE member_id = %s", (2, member.id))
                         db.commit()
                         Mutebackground = Editor(f"/home/container/SolidBot/assets/Modcard/banwarn.png")
                         Jungl = Font(path ='/home/container/SolidBot/assets/junegull rg.ttf', size=40)
@@ -196,14 +196,14 @@ class Mod(commands.Cog):
             db = pymysql.connect(**config)
             try:
                 with db.cursor() as cursor:
-                    cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE  member_id = %s", member.id)
+                    cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE  member_id = %s", member.id)
                     user = cursor.fetchall()[0]
-                    warns = user[7]
-                    cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET warns = %s WHERE member_id = %s", (warns-1, member.id))
+                    warns = user[8]
+                    cursor.execute("UPDATE `s168073_members`.`members` SET warns = %s WHERE member_id = %s", (warns-1, member.id))
                     db.commit()
-                    cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE  member_id = %s", member.id)
+                    cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE  member_id = %s", member.id)
                     user = cursor.fetchall()[0]
-                    warns = user[7]
+                    warns = user[8]
                     await inter.response.defer()
                     link = str(member.display_avatar)
                     filename = f"{member.name}.png"

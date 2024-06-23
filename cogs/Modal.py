@@ -160,9 +160,6 @@ class Modal(commands.Cog):
                 embed.set_author(name = f"{inter.author.name}")
                 await inter.send(embed=embed, view=classe)
         await inter.response.send_modal(modal = tradeModal())
-#===================
-        # For dynamic items, we must register the classes instead of the views.
-        
 #------------------------------------#
     @commands.command(auto_sync=True)
     async def app(self, inter: disnake.AppCmdInter):

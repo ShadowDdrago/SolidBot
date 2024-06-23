@@ -185,7 +185,7 @@ class Lvl(commands.Cog):
         else:
             percentage = ( (xp / ((4*(lvl ** 3)) / 5 )) )
         i = inventar['card']
-        background = Image.open(f'assets/card/{i}.png')
+        background = Image.open(f'/home/container/assets/card/{i}.png')
 
         def averagePixels(imageName):
             imgData = imageName.load()
@@ -212,7 +212,8 @@ class Lvl(commands.Cog):
         color = "white"
         drawObject.ellipse((x1+w1,y1,x1+h1+w1,y1+h1),fill=color)    
         drawObject.ellipse((x1,y1,x1+h1,y1+h1),fill=color)    
-        # drawObject.rectangle((x1+(h1/2),y1, x1+w1+(h1/2), y1+h1),fill=color)             #====== Bar- Color
+        drawObject.rectangle((x1+(h1/2),y1, x1+w1+(h1/2), y1+h1),fill=color)
+        #====== Bar- Color
         x1 =365
         y1 = 315
         w1 = 1295
@@ -221,11 +222,11 @@ class Lvl(commands.Cog):
         drawObject.ellipse((x1+w1,y1,x1+h1+w1,y1+h1),fill=(round(PixelColor[0]),round(PixelColor[1]),round(PixelColor[2])))    
         drawObject.ellipse((x1,y1,x1+h1,y1+h1),fill=(round(PixelColor[0]),round(PixelColor[1]),round(PixelColor[2])))    
         drawObject.rectangle((x1+(h1/2),y1, x1+w1+(h1/2), y1+h1),fill=(round(PixelColor[0]),round(PixelColor[1]),round(PixelColor[2])))
-        #=====
+        #===== Money Bar
         money_len = len(str(money))
-        money_avatar = Image.open('assets\sources\money_avatar.png')
-        money_lines = Image.open('assets\sources\money_lines.png').resize((1300+money_len*100, 400))
-        money_x = 1427
+        money_avatar = Image.open(f'/home/container/assets/sources/money_avatar.png','r')
+        money_lines = Image.open('/home/container/assets/sources/money_lines.png', 'r').resize((1300+money_len*100, 400))
+        money_x = 1560
         money_y = 50
         background.paste(money_lines, (money_x-money_len*30,25), mask=money_lines)
         background.paste(money_avatar, (money_x-money_len*30+20,40), mask=money_avatar)
@@ -261,33 +262,42 @@ class Lvl(commands.Cog):
         profile = Image.open(f"{member.name}.png").resize((300,300))
         profile = add_corners(profile, 150)
         background.paste(im=profile, box=(43,56), mask=profile)
-        #=====
-        
-        #=====TEXT LVL
+        #=====TEXT XP
         draw = ImageDraw.Draw(background)
-        font_name= ImageFont.truetype(font = "\assets\sources\assets\junegull_rg.ttf",size = 56)
-        font_text = ImageFont.truetype(font = "\assets\sources\assets\junegull_rg.ttf", size = 30)
+        font_name= ImageFont.truetype(font = "/home/container/assets/junegull rg.ttf",size = 56)
+        font_text = ImageFont.truetype(font = "/home/container/assets/junegull rg.ttf", size = 30)
         draw.text(xy = (1507, 236), font = font_name , text = f"{xp}/{((4*(lvl ** 3)) / 5 )}", fill = (255,255,255))
         #=====TEXT NAME
         draw.text(xy=(360,227),font = font_name,text= f"{member.display_name}", fill=(255,255,255))
         #=====
+        
         draw.text(xy=(money_x-money_len*30+70,42),font = font_text, text=f"{money}", fill= (255,255,255))
-        #=====Circl nean avatar
-        x =193
-        y = 205
+        #Circl with LVL
+        x = 115
+        y = 340
         p1=round(PixelColor[0])
         p2=round(PixelColor[1])
         p3= round(PixelColor[2])
+        draw.arc((x-50, y-50, x+50,y+50), width= 3,start = 0, end = 360, fill=(255-p1,255-p2,255-p3))
+        draw.ellipse((x-48, y-48, x+48,y+48),(p1,p2,p3),(255-p1,255-p2,255-p3))
+        #=====TEXT LVL
+        font_lvl = ImageFont.truetype(font = "/home/container/assets/junegull rg.ttf", size = 52)
+        x  = 100
+        y  = 307
+        draw.text(xy=(x-15*(len(str(lvl))-1),y),font = font_lvl, text=f"{lvl}", fill= (255,255,255))
+        #=====Circl nean avatar
+        
+        x =193
+        y = 205
+        p1=255-round(PixelColor[0])
+        p2=255-round(PixelColor[1])
+        p3= 255-round(PixelColor[2])
         draw.arc((x-160, y-160, x+160,y+160), width= 6, start = -90, end = 100, fill=(p1,p2,p3))
         background.save(fp, "PNG")
         fp.seek(0)
         background.close()
         background = File(fp=fp , filename="card.png")
-        emrank = disnake.Embed(title = None)
-        emrank.set_image(file=background)
-        
-        await inter.send(embed=emrank)
-
+        await inter.send(file = background)
         
         
         

@@ -17,23 +17,23 @@ class Shops(commands.Cog):
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
         fp = io.BytesIO()
-        shop = Image.open('/home/container/SolidBot/assets/sources/Solid.png')
+        shop = Image.open('/home/container/assets/sources/Solid.png')
         shop.save(fp=fp,format ='PNG')
         fp.seek(0)
         shop.close()
         shop=File(fp=fp , filename="Solid.png")
         
-        
+        # Кнопочки
         wardrobe = Button(style = ButtonStyle.grey,  label = "Гордиробчик",custom_id = "wardrobe")
-
+        #... 
         await inter.send(file=shop, components= [ActionRow(wardrobe)])
     @commands.Cog.listener()
     async def on_button_click(self, inter: disnake.MessageInteraction):
         member = inter.author
         custom = inter.component.custom_id
         if custom == "wardrobe":
-            wardrobe_embed = disnake.Embed(title = "**Фоны профыиля**")
-            wardrobe_embed.add_field(name = "", value=":yellow_dot: Туманность \n :yellow_dot: Неко тян" )
+            wardrobe_embed = disnake.Embed()
+            wardrobe_embed.add_field(name = "**Фоны профыиля**", value=":yellow_dot: Туманность \n :yellow_dot: Неко тян" )
             await inter.send(embed = wardrobe_embed, ephemeral=True)
             
             
