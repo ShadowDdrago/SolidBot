@@ -5,11 +5,7 @@ import disnake
 from disnake import *
 from disnake.ext import commands
 from disnake.ui import *
-import os, io
-import asyncio
-import asyncpg
-import numpy as np 
-import aggdraw
+import  io
 from PIL import Image, ImageDraw, ImageFont
 import requests
 from confi import config
@@ -18,15 +14,31 @@ class Shops(commands.Cog):
         self.bot = bot
     
     @commands.command(auto_sync=True)
-    async def market(self, inter: disnake.AppCmdInter):        
-        shops = disnake.Embed(color=0x303136)
+    async def mark(self, inter: disnake.AppCmdInter): 
+        #Отправка изображения с надписью МАГАЗИН
         fp = io.BytesIO()
         shop = Image.open('/home/container/SolidBot/assets/sources/Solid.png')
         shop.save(fp=fp,format ='PNG')
         fp.seek(0)
         shop.close()
         shop=File(fp=fp , filename="Solid.png")
-        shops.set_image(file = shop)
-        await inter.send(embed=shops)
+        
+        # Кнопочки
+        wardrobe = Button(style = ButtonStyle.grey,  label = "Гордиробчик",custom_id = "wardrobe")
+        #... 
+        await inter.send(file=shop, components= [ActionRow(wardrobe)])
+    @commands.Cog.listener()
+    async def on_button_click(self, inter: disnake.MessageInteraction):
+        member = inter.author
+        custom = inter.component.custom_id
+        if custom == "wardrobe":
+            wardrobe_embed = disnake.Embed(title = "**Фоны профыиля**")
+            wardrobe_embed.add_field(name = "", value=":yellow_dot: Туманность \n :yellow_dot: Неко тян" )
+            await inter.send(embed = wardrobe_embed, ephemeral=True)
+            
+            
+            
+        
+    
 def setup(bot):
     bot.add_cog(Shops(bot))

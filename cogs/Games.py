@@ -4,11 +4,11 @@ import asyncpg
 from disnake.ext import commands
 from disnake import member, Button, ButtonStyle
 from disnake.ui import *
-
+import os
 import ast
-
+import time 
 import pymysql
-
+import random
 from confi import config
 class Game(commands.Cog):
     def __init__(self, bot) -> None:
@@ -190,8 +190,8 @@ class Game(commands.Cog):
         try:
             db = pymysql.connect(**config)
             with db.cursor() as cursor:
-                cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str([[0,0,0] for i in range(0,3)]), author.id))
-                cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str([[0,0,0] for i in range(0,3)]), member.id))
+                cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str([[0,0,0] for i in range(0,3)]), author.id))
+                cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str([[0,0,0] for i in range(0,3)]), member.id))
                 db.commit()
             db.close()
         except Exception as ex:
@@ -210,9 +210,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -226,9 +226,9 @@ class Game(commands.Cog):
                             self.but1.label = "X"
                             self.but1.disabled = True
                             author_games[0][0] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -244,9 +244,9 @@ class Game(commands.Cog):
                             self.but1.disabled = True
                             member_games[0][0] = 1
                             
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -266,9 +266,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -282,9 +282,9 @@ class Game(commands.Cog):
                             self.but2.label = "X"
                             self.but2.disabled = True
                             author_games[0][1] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -298,9 +298,9 @@ class Game(commands.Cog):
                             self.but2.label = "O"
                             self.but2.disabled = True
                             member_games[0][1] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit() 
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -319,9 +319,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -335,9 +335,9 @@ class Game(commands.Cog):
                             self.but3.label = "X"
                             self.but3.disabled = True
                             author_games[0][2] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -351,9 +351,9 @@ class Game(commands.Cog):
                             self.but3.label = "O"
                             self.but3.disabled = True
                             member_games[0][2] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -372,9 +372,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -388,9 +388,9 @@ class Game(commands.Cog):
                             self.but4.label = "X"
                             self.but4.disabled = True
                             author_games[1][0] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -404,9 +404,9 @@ class Game(commands.Cog):
                             self.but4.label = "O"
                             self.but4.disabled = True
                             member_games[1][0] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -425,9 +425,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -441,9 +441,9 @@ class Game(commands.Cog):
                             self.but5.label = "X"
                             self.but5.disabled = True
                             author_games[1][1] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -457,9 +457,9 @@ class Game(commands.Cog):
                             self.but5.label = "O"
                             self.but5.disabled = True
                             member_games[1][1] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -478,9 +478,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -494,9 +494,9 @@ class Game(commands.Cog):
                             self.but6.label = "X"
                             self.but6.disabled = True
                             author_games[1][2] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -510,9 +510,9 @@ class Game(commands.Cog):
                             self.but6.label = "O"
                             self.but6.disabled = True
                             member_games[1][2] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit() 
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -531,9 +531,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -547,9 +547,9 @@ class Game(commands.Cog):
                             self.but7.label = "X"
                             self.but7.disabled = True
                             author_games[2][0] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -563,9 +563,9 @@ class Game(commands.Cog):
                             self.but7.label = "O"
                             self.but7.disabled = True
                             member_games[2][0] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit() 
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -585,9 +585,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         print(member_db)
                         member_games = ast.literal_eval(member_db[6])
@@ -602,9 +602,9 @@ class Game(commands.Cog):
                             self.but8.label = "X"
                             self.but8.disabled = True
                             author_games[2][1] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -618,9 +618,9 @@ class Game(commands.Cog):
                             self.but8.label = "O"
                             self.but8.disabled = True
                             member_games[2][1] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):
@@ -639,9 +639,9 @@ class Game(commands.Cog):
                     db = pymysql.connect(**config)
                     with db.cursor() as cursor:
                         #------------------------- Получение данных
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                         member_db = cursor.fetchall()[0]
-                        cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                        cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                         author_db = cursor.fetchall()[0]
                         member_games = ast.literal_eval(member_db[6])
                         author_games = ast.literal_eval(author_db[6])
@@ -655,9 +655,9 @@ class Game(commands.Cog):
                             self.but9.label = "X"
                             self.but9.disabled = True
                             author_games[2][2] = 1 
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(author_games), author.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (author.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (author.id))
                             author_db = cursor.fetchall()[0]
                             author_games = ast.literal_eval(author_db[6])
                             if is_win(author_games):
@@ -671,9 +671,9 @@ class Game(commands.Cog):
                             self.but9.label = "O"
                             self.but9.disabled = True
                             member_games[2][2] = 1
-                            cursor.execute("UPDATE `s168073_kjabdgkjabkgb`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
+                            cursor.execute("UPDATE `s168073_members`.`members` SET games = %s WHERE member_id = %s", (str(member_games), member.id))
                             db.commit()
-                            cursor.execute("SELECT * FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", (member.id))
+                            cursor.execute("SELECT * FROM `s168073_members`.`members` WHERE member_id = %s ", (member.id))
                             member_db = cursor.fetchall()[0]
                             member_games = ast.literal_eval(member_db[6])
                             if is_win(member_games):

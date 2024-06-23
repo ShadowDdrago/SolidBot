@@ -17,7 +17,7 @@ async def all_members(ctx):
     await ctx.send(ctx.guild.members)
 bot.remove_command('help')
 #Cogs-
-for cog in os.listdir("C:\Users\MIKS0\OneDrive\Рабочий стол\SolidBot\cogs"):
+for cog in os.listdir(r"C:\Users\MIKS0\OneDrive\Рабочий стол\SolidBot\cogs"):
     if cog.endswith(".py") and not cog.startswith("_"):
         try:
             cog = f"cogs.{cog.replace('.py', '')}"
@@ -42,8 +42,8 @@ async def on_ready():
                         
                         if member == bot.user:
                             pass
-                        elif cursor.execute("SELECT member_id FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", str(member.id)) == 0:
-                            cursor.execute("INSERT INTO `s168073_kjabdgkjabkgb`.`members`(member_id, lvl, money, exp, custom) VALUE (%s, '0' , '0', '0',%s)", (str(member.id), str({"card": "card5"})))
+                        elif cursor.execute("SELECT member_id FROM `s168073_members`.`members` WHERE member_id = %s ", str(member.id)) == 0:
+                            cursor.execute("INSERT INTO `s168073_members`.`members`(member_id, lvl, money, exp, custom) VALUE (%s, '0' , '0', '0',%s)", (str(member.id), str({"card": "card5"})))
                             db.commit()
                 finally:
                     db.close()
@@ -60,8 +60,8 @@ async def on_member_join(member: disnake.Member):
                 if member == bot.user:
                     pass
                 
-                elif cursor.execute("SELECT member_id FROM `s168073_kjabdgkjabkgb`.`members` WHERE member_id = %s ", str(member.id)) == None:
-                    cursor.execute("INSERT INTO `s168073_kjabdgkjabkgb`.`members`(member_id, lvl, money, exp, custom) VALUE (%s, '0' , '0', '0',%s)", (str(member.id), str({"card": "card5"})))
+                elif cursor.execute("SELECT member_id FROM `s168073_members`.`members` WHERE member_id = %s ", str(member.id)) == None:
+                    cursor.execute("INSERT INTO `s168073_members`.`members`(member_id, lvl, money, exp, custom) VALUE (%s, '0' , '0', '0',%s)", (str(member.id), str({"card": "card5"})))
                     db.commit()
         finally:
             db.close()
