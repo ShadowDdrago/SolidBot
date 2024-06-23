@@ -23,7 +23,7 @@ class Shops(commands.Cog):
         shop.close()
         shop=File(fp=fp , filename="Solid.png")
         
-        # Кнопочки
+        
         wardrobe = Button(style = ButtonStyle.grey,  label = "Гордиробчик",custom_id = "wardrobe")
 
         await inter.send(file=shop, components= [ActionRow(wardrobe)])
