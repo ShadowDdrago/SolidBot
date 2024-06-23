@@ -29,11 +29,13 @@ class Shops(commands.Cog):
         await inter.send(file=shop, components= [ActionRow(wardrobe)])
     @commands.Cog.listener()
     async def on_button_click(self, inter: disnake.MessageInteraction):
+        
         member = inter.author
         custom = inter.component.custom_id
         if custom == "wardrobe":
+            emojis = disnake.emoji(id = "<a:zdot:1125146314607431701>")
             wardrobe_embed = disnake.Embed()
-            wardrobe_embed.add_field(name = "**Фоны профыиля**", value="<a:zdot:1125146314607431701> Туманность \n <a:zdot:1125146314607431701> Неко тян" )
+            wardrobe_embed.add_field(name = "**Фоны профыиля**", value=f"<a:zdot:1125146314607431701> Туманность \n {emojis} Неко тян" )
             await inter.send(embed = wardrobe_embed, ephemeral=True)
             
             
