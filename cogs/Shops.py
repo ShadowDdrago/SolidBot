@@ -33,7 +33,7 @@ class Shops(commands.Cog):
         custom = inter.component.custom_id
         if custom == "wardrobe":
             wardrobe_embed = disnake.Embed()
-            wardrobe_embed.add_field(name = "**Фоны профыиля**", value=":yellow_dot: Туманность \n :yellow_dot: Неко тян" )
+            wardrobe_embed.add_field(name = "**Фоны профыиля**", value="<a:zdot:1125146314607431701> Туманность \n <a:zdot:1125146314607431701> Неко тян" )
             await inter.send(embed = wardrobe_embed, ephemeral=True)
             
             
