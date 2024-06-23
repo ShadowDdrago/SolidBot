@@ -25,7 +25,7 @@ class Shops(commands.Cog):
         
         # Кнопочки
         wardrobe = Button(style = ButtonStyle.grey,  label = "Гордиробчик",custom_id = "wardrobe")
-        #... 
+
         await inter.send(file=shop, components= [ActionRow(wardrobe)])
     @commands.Cog.listener()
     async def on_button_click(self, inter: disnake.MessageInteraction):
