@@ -33,7 +33,7 @@ class Shops(commands.Cog):
         member = inter.author
         custom = inter.component.custom_id
         if custom == "wardrobe":
-            emojis = disnake.utils.get(self.bot.guilds[0].emojis, name='zdot')
+            emojis = self.bot.fetch_emoji("<a:zdot:1125146314607431701>")
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**", value=f"<a:zdot:1125146314607431701> Туманность \n {emojis} Неко тян" )
             await inter.send(embed = wardrobe_embed, ephemeral=True)
