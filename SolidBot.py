@@ -17,7 +17,7 @@ async def all_members(ctx):
     await ctx.send(ctx.guild.members)
 bot.remove_command('help')
 #Cogs-
-for cog in os.listdir(r"C:\Users\MIKS0\OneDrive\Рабочий стол\SolidBot\cogs"):
+for cog in os.listdir(r"/home/container/cogs"):
     if cog.endswith(".py") and not cog.startswith("_"):
         try:
             cog = f"cogs.{cog.replace('.py', '')}"
