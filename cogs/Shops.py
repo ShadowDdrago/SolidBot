@@ -42,7 +42,7 @@ class Shops(commands.Cog):
             label="Гардироб", style=disnake.ButtonStyle.green,custom_id="gard"
         )
         async def green(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-            wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профыиля**" ,
+            wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профиля**" ,
                                      value=f"{wardrob[0]}" )
             wardrobe_embed.set_footer(text = f"{1}/{len(wardrob)}")
             await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
@@ -58,8 +58,9 @@ class Shops(commands.Cog):
             if self.count < 0: 
                 self.count = len(wardrob)-1
                 text = wardrob[len(wardrob)-1]
+            text = wardrob[self.count]
             wardrobe_embed = disnake.Embed()
-            wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
+            wardrobe_embed.add_field(name = "**Фоны профиля**" ,
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             await inter.response.edit_message(embed=wardrobe_embed)
@@ -74,7 +75,7 @@ class Shops(commands.Cog):
                 self.count = 0 
                 text = wardrob[self.count]
             wardrobe_embed = disnake.Embed()
-            wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
+            wardrobe_embed.add_field(name = "**Фоны профиля**" ,
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             await inter.response.edit_message(embed=wardrobe_embed)
