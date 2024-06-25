@@ -66,9 +66,9 @@ class Shops(commands.Cog):
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             await inter.response.edit_message(embed=wardrobe_embed)
         @disnake.ui.button(
-            label="Next", style=disnake.ButtonStyle.green, custom_id="next"
+            label="previous", style=disnake.ButtonStyle.green, custom_id="previous"
         )
-        async def next(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+        async def previous(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.count -= 1
             try: 
                 text = wardrob[self.count]
