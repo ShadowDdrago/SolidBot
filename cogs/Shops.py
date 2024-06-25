@@ -52,7 +52,7 @@ class Shops(commands.Cog):
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[self.count]}")
-            inter.response.edit_message(embed=wardrobe_embed)
+            inter.edit_original_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.persistent_views:
