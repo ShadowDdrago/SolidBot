@@ -43,7 +43,7 @@ class Shops(commands.Cog):
                         <:yellowpoint:1255098956321521807> Туманность\n\
                         <:yellowpoint:1255098956321521807> Minecraft \n\
                         <:greenpoint:1255098975208607805> Minecraft_invers \n\
-                        <:greenpoint:1255098975208607805> card6 извинить нахуй мало пикселей \n\
+                        <:greenpoint:1255098975208607805> card6 изменить нахуй мало пикселей \n\
                         ',
                         '<:greenpoint:1255098975208607805> Апокалипсис \n \
                         <:yellowpoint:1255098956321521807> Город \n \
