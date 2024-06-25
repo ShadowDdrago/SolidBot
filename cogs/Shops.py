@@ -56,10 +56,10 @@ class Shops(commands.Cog):
         async def next(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.count += 1
             try: 
-                text = self.wardrob[self.count]
+                text = wardrob[self.count]
             except: 
                 self.count = 0 
-                text = self.wardrob[self.count]
+                text = wardrob[self.count]
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
                                      value=f"{wardrob[self.count]}")
