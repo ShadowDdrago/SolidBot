@@ -37,8 +37,8 @@ class Shops(commands.Cog):
             await inter.send(embed = self.wardrobe_embed, view=SupportButton() , ephemeral=True)
     global SupportButton
     class SupportButton(disnake.ui.View):
-        def __init__(self, *, timeout: None):
-            super().__init__(timeout=timeout)
+        def __init__(self):
+            super().__init__(timeout=None)
             self.count = 0
         @disnake.ui.button(
             label="Next", style=disnake.ButtonStyle.green, custom_id="next"
