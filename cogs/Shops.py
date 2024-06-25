@@ -33,7 +33,7 @@ class Shops(commands.Cog):
             wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[0]}" )
             emojis = inter.message.guild
-            await inter.send(embed = self.wardrobe_embed, view=SupportButton() , ephemeral=True)
+            await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
     global SupportButton
     class SupportButton(disnake.ui.View):
         def __init__(self):
