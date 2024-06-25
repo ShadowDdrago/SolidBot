@@ -34,7 +34,7 @@ class Shops(commands.Cog):
             await inter.send(embed = wardrobe_embed, ephemeral=True)
     @commands.Cog.listener()
     async def on_ready(self):
-        if not self.persistent_views_added:
+        if not self.bot.persistent_views_added:
             self.bot.add_view(PersistentView())
             self.bot.persistent_views_added = True
     @commands.command(auto_sync=True)
