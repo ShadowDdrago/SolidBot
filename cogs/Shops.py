@@ -12,9 +12,26 @@ from confi import config
 class Shops(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:      
         self.bot = bot  
-#СОЗДАНИЕ ВСЕХ КНОПОК
-    # ОСНОВНАЯ КНОПКА
+#ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+    global wardrob
     global MainButton
+    global SupportButton
+#=====================
+    wardrob =  ['<:greenpoint:1255098975208607805> Графити \n \
+                        <:yellowpoint:1255098956321521807> Туманность\n\
+                        <:yellowpoint:1255098956321521807> Minecraft \n\
+                        <:greenpoint:1255098975208607805> Minecraft_invers \n\
+                        <:greenpoint:1255098975208607805> card6 изменить нахуй мало пикселей \n\
+                        ',
+                        '<:greenpoint:1255098975208607805> Апокалипсис \n \
+                        <:yellowpoint:1255098956321521807> Город \n \
+                        <:greenpoint:1255098975208607805> Dota2 \n \
+                        <:yellowpoint:1255098956321521807> Luffy \n \
+                        <:greenpoint:1255098975208607805> Природа \n \
+                                            ', 
+                        '<:greenpoint:1255098975208607805> Некотян \n\
+                        <:greenpoint:1255098975208607805> Степь \n \
+                        <:greenpoint:1255098975208607805> Valorant \n']
     class MainButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
@@ -34,7 +51,6 @@ class Shops(commands.Cog):
                                      value=f"{self.wardrob[0]}" )
             wardrobe_embed.set_footer(text = f"{1}/{len(self.wardrob)}")
             await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
-    global SupportButton
     class SupportButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
@@ -67,7 +83,7 @@ class Shops(commands.Cog):
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[self.count]}")
-            wardrobe_embed.set_footer(text = f"{self.count}/{len(self.wardrob)}")
+            wardrobe_embed.set_footer(text = f"{self.count+1}/{len(self.wardrob)}")
             await inter.response.edit_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
