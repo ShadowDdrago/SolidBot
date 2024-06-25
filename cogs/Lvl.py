@@ -5,10 +5,8 @@ from disnake.ext import commands
 from disnake.ext import *
 from disnake import *
 from disnake.ui import *
-import os, io
+import io
 import disnake
-import asyncio
-import asyncpg
 import numpy as np 
 import aggdraw
 from PIL import Image, ImageDraw, ImageFont

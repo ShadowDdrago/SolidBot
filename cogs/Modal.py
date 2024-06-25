@@ -10,6 +10,7 @@ from confi import config
 class Modal(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
+    
 #---# Создание модуля 
     @commands.has_permissions(administrator = True)
     @commands.slash_command(auto_sync = True)
