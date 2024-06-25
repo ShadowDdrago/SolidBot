@@ -32,26 +32,42 @@ class Shops(commands.Cog):
         async def green(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[0]}" )
+            wardrobe_embed.set_footer(text = f"{self.count}/{len(self.wardrob)}")
             await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
     global SupportButton
     class SupportButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
             self.count = 0
-            self.wardrob =  ['<:greenpoint:1255098975208607805> Туманность \n \
-                        <:yellowpoint:1255098956321521807> Неко тян\n\
-                        <:yellowpoint:1255098956321521807> Dota 2 \n\
-                        <:greenpoint:1255098975208607805> Valorant \n\
-                        <:greenpoint:1255098975208607805> Закат \n\
-                        ','АБОБАББАА 1', 'АБОБАААА 2']
+            self.wardrob =  ['<:greenpoint:1255098975208607805> Графити \n \
+                        <:yellowpoint:1255098956321521807> Туманность\n\
+                        <:yellowpoint:1255098956321521807> Minecraft \n\
+                        <:greenpoint:1255098975208607805> Minecraft_invers \n\
+                        <:greenpoint:1255098975208607805> card6 извинить нахуй мало пикселей \n\
+                        ',
+                        '<:greenpoint:1255098975208607805> Апокалипсис \n \
+                        <:yellowpoint:1255098956321521807> Город \n \
+                        <:greenpoint:1255098975208607805> Dota2 \n \
+                        <:yellowpoint:1255098956321521807> Luffy \n \
+                        <:greenpoint:1255098975208607805> Природа \n \
+                                            ', 
+                        '<:greenpoint:1255098975208607805> Некотян \n\
+                        <:greenpoint:1255098975208607805> Степь \n \
+                        <:greenpoint:1255098975208607805> Valorant \n']
         @disnake.ui.button(
             label="Next", style=disnake.ButtonStyle.green, custom_id="next"
         )
         async def next(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.count += 1
+            try: 
+                text = self.wardrob[self.count]
+            except: 
+                self.count = 0 
+                text = self.wardrob[self.count]
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[self.count]}")
+            wardrobe_embed.set_footer(text = f"{self.count}/{len(self.wardrob)}")
             await inter.response.edit_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
