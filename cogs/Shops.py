@@ -36,7 +36,6 @@ class Shops(commands.Cog):
     async def on_ready(self):
         if not self.bot.persistent_views:
             self.bot.add_view(PersistentView())
-            self.bot.persistent_views = True
     @commands.command(auto_sync=True)
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
