@@ -16,7 +16,6 @@ class Shops(commands.Cog):
     global wardrob
     global MainButton
     global SupportButton
-    global DropDownView
     global DropDownSelect
 #=====================
     wardrob =  ['<:greenpoint:1255098975208607805> Графити \n \
@@ -49,6 +48,28 @@ class Shops(commands.Cog):
             wardrobe_embed.set_footer(text = f"{1}/{len(wardrob)}")
             await inter.send(embed = wardrobe_embed, view=DropDownView() , ephemeral=True)
             await inter.send(view=SupportButton())
+    class DropDownSelect(disnake.ui.StringSelect):
+        def __init__(self):
+            options = [
+            disnake.SelectOption(label="Графити"),
+            disnake.SelectOption(label="Туманность"),
+            disnake.SelectOption(label="Minecraft"),
+            disnake.SelectOption(label="Minecraft_invers"),
+            disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),
+            disnake.SelectOption(label="Апокалипсис"),
+            disnake.SelectOption(label="Город"),
+            disnake.SelectOption(label="Dota2"),
+            disnake.SelectOption(label="Luffy"),
+            disnake.SelectOption(label="Природа"),
+            disnake.SelectOption(label="Некотян"),
+            disnake.SelectOption(label="Степь"),
+            disnake.SelectOption(label="Valorant"),
+            ]
+            super().__init__(
+            placeholder="Выберите товар)",
+            min_values=1,
+            max_values=1,
+            options=options,)
     class SupportButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
@@ -83,28 +104,7 @@ class Shops(commands.Cog):
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             await inter.response.edit_message(embed=wardrobe_embed)
-    class DropDownSelect(disnake.ui.StringSelect):
-        def __init__(self):
-            options = [
-            disnake.SelectOption(label="Графити"),
-            disnake.SelectOption(label="Туманность"),
-            disnake.SelectOption(label="Minecraft"),
-            disnake.SelectOption(label="Minecraft_invers"),
-            disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),
-            disnake.SelectOption(label="Апокалипсис"),
-            disnake.SelectOption(label="Город"),
-            disnake.SelectOption(label="Dota2"),
-            disnake.SelectOption(label="Luffy"),
-            disnake.SelectOption(label="Природа"),
-            disnake.SelectOption(label="Некотян"),
-            disnake.SelectOption(label="Степь"),
-            disnake.SelectOption(label="Valorant"),
-            ]
-            super().__init__(
-            placeholder="Выберите товар)",
-            min_values=1,
-            max_values=1,
-            options=options,)
+    
     
     @commands.Cog.listener()
     async def on_ready(self):
