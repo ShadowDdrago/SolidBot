@@ -65,10 +65,26 @@ class Shops(commands.Cog):
                                      value=f"{wardrob[self.count]}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             await inter.response.edit_message(embed=wardrobe_embed)
+        @disnake.ui.button(
+            label="Next", style=disnake.ButtonStyle.green, custom_id="next"
+        )
+        async def next(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
+            self.count -= 1
+            try: 
+                text = wardrob[self.count]
+            except: 
+                self.count = len(wardrob) -1 
+                text = wardrob[self.count]
+            wardrobe_embed = disnake.Embed()
+            wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
+                                     value=f"{wardrob[self.count]}")
+            wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
+            await inter.response.edit_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.persistent_views:
             self.bot.add_view(MainButton())
+            self.bot.add_view(SupportButton())
     @commands.command(auto_sync=True)
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
