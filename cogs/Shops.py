@@ -16,7 +16,8 @@ class Shops(commands.Cog):
     global wardrob
     global MainButton
     global SupportButton
-    global DropDownSelect
+    global DropDownView
+    
 #=====================
     wardrob =  ['<:greenpoint:1255098975208607805> Графити \n \
                         <:yellowpoint:1255098956321521807> Туманность\n\
@@ -33,35 +34,10 @@ class Shops(commands.Cog):
                         '<:greenpoint:1255098975208607805> Некотян \n\
                         <:greenpoint:1255098975208607805> Степь \n \
                         <:greenpoint:1255098975208607805> Valorant \n']
-    class DropDownSelect(disnake.ui.StringSelect):
-        def __init__(self):
-            options = [
-                        disnake.SelectOption(label="Графити"),
-                        disnake.SelectOption(label="Туманность"),
-                        disnake.SelectOption(label="Minecraft"),
-                        disnake.SelectOption(label="Minecraft_invers"),
-                        disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),
-                        disnake.SelectOption(label="Апокалипсис"),
-                        disnake.SelectOption(label="Город"),
-                        disnake.SelectOption(label="Dota2"),
-                        disnake.SelectOption(label="Luffy"),
-                        disnake.SelectOption(label="Природа"),
-                        disnake.SelectOption(label="Некотян"),
-                        disnake.SelectOption(label="Степь"),
-                        disnake.SelectOption(label="Valorant"),
-                    ]
-            super().__init__(
-            custom_id= "DropDown",
-            placeholder="Выберите товар)",
-            min_values=1,
-            max_values=1,
-            options=options)
+    
     class MainButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
-            self.add_item(DropDownSelect())
-                
-
         @disnake.ui.button(
             label="Гардироб", style=disnake.ButtonStyle.green,custom_id="gard"
         )
@@ -71,15 +47,41 @@ class Shops(commands.Cog):
             wardrobe_embed.set_footer(text = f"{1}/{len(wardrob)}")
             await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
     class SupportButton(disnake.ui.View):
+        global DropDownSelect
         def __init__(self):
             super().__init__(timeout=None)
             self.count = 0
+            self.options = [[disnake.SelectOption(label="Апокалипсис"),
+                    disnake.SelectOption(label="Город"),
+                    disnake.SelectOption(label="Dota2"),
+                    disnake.SelectOption(label="Luffy"),
+                    disnake.SelectOption(label="Природа"),],
+                    [disnake.SelectOption(label="Некотян"),
+                    disnake.SelectOption(label="Степь"),
+                    disnake.SelectOption(label="Valorant"),
+                    ]]
+            self.add_item(DropDownSelect())
+        class DropDownSelect(disnake.ui.StringSelect):
+            def __init__(self):
+                options = [
+                    disnake.SelectOption(label="Графити"),
+                    disnake.SelectOption(label="Туманность"),
+                    disnake.SelectOption(label="Minecraft"),
+                    disnake.SelectOption(label="Minecraft_invers"),
+                    disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),]
+                super().__init__(
+                    custom_id="drop",
+                    placeholder="Выберите товар)",
+                    min_values=1,
+                    max_values=1,
+                    options=options,)
         @disnake.ui.button(
-            label="Previous", style=disnake.ButtonStyle.green, custom_id="previous"
+            label="previous", style=disnake.ButtonStyle.green, custom_id="previous"
         )
         async def previous(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.count -= 1
-            if self.count < 0: 
+            
+            if self.count < 0:
                 self.count = len(wardrob)-1
                 text = wardrob[len(wardrob)-1]
             text = wardrob[self.count]
@@ -87,6 +89,7 @@ class Shops(commands.Cog):
             wardrobe_embed.add_field(name = "**Фоны профиля**" ,
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
+            DropDownSelect().options = self.options[self.count]
             await inter.response.edit_message(embed=wardrobe_embed)
         @disnake.ui.button(
             label="Next", style=disnake.ButtonStyle.green, custom_id="next"
@@ -102,14 +105,15 @@ class Shops(commands.Cog):
             wardrobe_embed.add_field(name = "**Фоны профиля**" ,
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
+            DropDownSelect().options = self.options[self.count]
             await inter.response.edit_message(embed=wardrobe_embed)
-    
     
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.persistent_views:
             self.bot.add_view(MainButton())
-            self.bot.add_view(SupportButton())  
+            self.bot.add_view(SupportButton())
+            self.bot.add_view(DropDownView())
     @commands.command(auto_sync=True)
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
