@@ -30,8 +30,7 @@ class Shops(commands.Cog):
                         '']
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
-                                     value=f"\
-                                     <:greenpoint:1255098975208607805> Туманность \n 
+                                     value=f"<:greenpoint:1255098975208607805> Туманность \n 
                                      <:yellowpoint:1255098956321521807> Неко тян\n\
                                      <:yellowpoint:1255098956321521807> Dota 2 \n\
                                      <:greenpoint:1255098975208607805> Valorant \n\
