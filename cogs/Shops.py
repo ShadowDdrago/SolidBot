@@ -34,9 +34,9 @@ class Shops(commands.Cog):
             await inter.send(embed = wardrobe_embed, ephemeral=True)
     @commands.Cog.listener()
     async def on_ready(self):
-        if not self.bot.persistent_views_added:
+        if not self.bot.persistent_views:
             self.bot.add_view(PersistentView())
-            self.bot.persistent_views_added = True
+            self.bot.persistent_views = True
     @commands.command(auto_sync=True)
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
