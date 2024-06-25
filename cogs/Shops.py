@@ -24,14 +24,13 @@ class Shops(commands.Cog):
                         <:greenpoint:1255098975208607805> Valorant \n\
                         <:greenpoint:1255098975208607805> Закат \n\
                         ','АБОБАББАА 1', 'АБОБАААА 2']
-            self.count = 0
-            self.wardrobe_embed = disnake.Embed()
+            
 
         @disnake.ui.button(
             label="Гардироб", style=disnake.ButtonStyle.green,custom_id="gard"
         )
         async def green(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-            self.wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
+            wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[0]}" )
             emojis = inter.message.guild
             await inter.send(embed = self.wardrobe_embed, view=SupportButton() , ephemeral=True)
@@ -40,6 +39,12 @@ class Shops(commands.Cog):
         def __init__(self):
             super().__init__(timeout=None)
             self.count = 0
+            self.wardrob =  ['<:greenpoint:1255098975208607805> Туманность \n \
+                        <:yellowpoint:1255098956321521807> Неко тян\n\
+                        <:yellowpoint:1255098956321521807> Dota 2 \n\
+                        <:greenpoint:1255098975208607805> Valorant \n\
+                        <:greenpoint:1255098975208607805> Закат \n\
+                        ','АБОБАББАА 1', 'АБОБАААА 2']
         @disnake.ui.button(
             label="Next", style=disnake.ButtonStyle.green, custom_id="next"
         )
@@ -47,7 +52,7 @@ class Shops(commands.Cog):
             self.count += 1
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
-                                     value=f"{wardrobe_embed[self.count]}")
+                                     value=f"{self.wardrob[self.count]}")
             inter.edit_original_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
