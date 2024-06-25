@@ -35,7 +35,7 @@ class Shops(commands.Cog):
                         <:greenpoint:1255098975208607805> Valorant \n']
     class MainButton(disnake.ui.View):
         def __init__(self):
-            super().__init__()
+            super().__init__(timeout=None)
             class DropDownSelect(disnake.ui.StringSelect):
                 def __init__(self):
                     options = [
@@ -54,6 +54,7 @@ class Shops(commands.Cog):
                     disnake.SelectOption(label="Valorant"),
                     ]
                     super().__init__(
+                    custom_id= "DropDown",
                     placeholder="Выберите товар)",
                     min_values=1,
                     max_values=1,
