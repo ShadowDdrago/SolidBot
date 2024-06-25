@@ -96,7 +96,7 @@ class Shops(commands.Cog):
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             DropDownSelect().options = self.options[self.count]
-            await inter.response.edit_message(embed=wardrobe_embed, view=SupportButton())
+            await inter.response.edit_message(embed=wardrobe_embed)
             
         @disnake.ui.button(
             label="Next", style=disnake.ButtonStyle.green, custom_id="next"
@@ -113,7 +113,7 @@ class Shops(commands.Cog):
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             DropDownSelect().options = self.options[self.count]
-            await inter.response.edit_message(embed=wardrobe_embed,view=SupportButton())
+            await inter.response.edit_message(embed=wardrobe_embed)
     
     @commands.Cog.listener()
     async def on_ready(self):
