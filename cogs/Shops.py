@@ -111,7 +111,6 @@ class Shops(commands.Cog):
         if not self.bot.persistent_views:
             self.bot.add_view(MainButton())
             self.bot.add_view(SupportButton())
-            self.bot.add_view(DropDownView())
     @commands.command(auto_sync=True)
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
