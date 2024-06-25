@@ -47,7 +47,7 @@ class Shops(commands.Cog):
             self.count += 1
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
-                                     value=f"{self.wardrob[self.count]}")
+                                     value=f"{wardrobe_embed[self.count]}")
             inter.edit_original_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
