@@ -58,7 +58,7 @@ class Shops(commands.Cog):
             options=options)
     class MainButton(disnake.ui.View):
         def __init__(self):
-            super().__init__()
+            super().__init__(timeout=None)
             self.add_item(DropDownSelect())
                 
 
@@ -72,10 +72,10 @@ class Shops(commands.Cog):
             await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
     class SupportButton(disnake.ui.View):
         def __init__(self):
-            super().__init__()
+            super().__init__(timeout=None)
             self.count = 0
         @disnake.ui.button(
-            label="previous", style=disnake.ButtonStyle.green, custom_id="previous"
+            label="Previous", style=disnake.ButtonStyle.green, custom_id="previous"
         )
         async def previous(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.count -= 1
