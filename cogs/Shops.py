@@ -53,6 +53,7 @@ class Shops(commands.Cog):
         def __init__(self):
             super().__init__(timeout=None)
             self.count = 0
+            self.add_item(DropDownSelect())
         @disnake.ui.button(
             label="previous", style=disnake.ButtonStyle.green, custom_id="previous"
         )
@@ -104,10 +105,7 @@ class Shops(commands.Cog):
             min_values=1,
             max_values=1,
             options=options,)
-    class DropDownView(disnake.ui.View):
-        def __init__(self):
-            super().__init__()
-            self.add_item(DropDownSelect())
+    
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.persistent_views:
