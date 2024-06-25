@@ -14,8 +14,8 @@ class Shops(commands.Cog):
         self.bot = bot  
 #СОЗДАНИЕ ВСЕХ КНОПОК
     # ОСНОВНАЯ КНОПКА
-    global PersistentView
-    class PersistentView(disnake.ui.View):
+    global MainButton
+    class MainButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
             self.wardrob =  ['<:greenpoint:1255098975208607805> Туманность \n \
@@ -34,19 +34,25 @@ class Shops(commands.Cog):
             self.wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[0]}" )
             emojis = inter.message.guild
-            await inter.send(embed = self.wardrobe_embed, ephemeral=True)
+            await inter.send(embed = self.wardrobe_embed, view=SupportButton() , ephemeral=True)
+    global SupportButton
+    class SupportButton(disnake.ui.View):
+        def __init__(self, *, timeout: None):
+            super().__init__(timeout=timeout)
+            self.count = 0
         @disnake.ui.button(
             label="Next", style=disnake.ButtonStyle.green, custom_id="next"
         )
         async def next(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.count += 1
-            self.wardrobe_embed.remove_field(0)
-            self.wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
+            wardrobe_embed = disnake.Embed()
+            wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[self.count]}")
+            inter.edit_original_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.persistent_views:
-            self.bot.add_view(PersistentView())
+            self.bot.add_view(MainButton())
     @commands.command(auto_sync=True)
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
@@ -57,7 +63,7 @@ class Shops(commands.Cog):
         shop.close()
         shop=File(fp=fp , filename="Solid.png")
         
-        await inter.send(file=shop, view = PersistentView())
+        await inter.send(file=shop, view = MainButton())
             
             
             
