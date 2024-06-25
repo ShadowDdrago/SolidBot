@@ -36,8 +36,30 @@ class Shops(commands.Cog):
     class MainButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
-            
-            
+            class DropDownSelect(disnake.ui.StringSelect):
+                def __init__(self):
+                    options = [
+                    disnake.SelectOption(label="Графити"),
+                    disnake.SelectOption(label="Туманность"),
+                    disnake.SelectOption(label="Minecraft"),
+                    disnake.SelectOption(label="Minecraft_invers"),
+                    disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),
+                    disnake.SelectOption(label="Апокалипсис"),
+                    disnake.SelectOption(label="Город"),
+                    disnake.SelectOption(label="Dota2"),
+                    disnake.SelectOption(label="Luffy"),
+                    disnake.SelectOption(label="Природа"),
+                    disnake.SelectOption(label="Некотян"),
+                    disnake.SelectOption(label="Степь"),
+                    disnake.SelectOption(label="Valorant"),
+                    ]
+                    super().__init__(
+                    placeholder="Выберите товар)",
+                    min_values=1,
+                    max_values=1,
+                    options=options,)
+            self.add_item(DropDownSelect())
+                
 
         @disnake.ui.button(
             label="Гардироб", style=disnake.ButtonStyle.green,custom_id="gard"
@@ -46,35 +68,11 @@ class Shops(commands.Cog):
             wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профиля**" ,
                                      value=f"{wardrob[0]}" )
             wardrobe_embed.set_footer(text = f"{1}/{len(wardrob)}")
-            await inter.send(embed = wardrobe_embed, view=DropDownView() , ephemeral=True)
-            await inter.send(view=SupportButton())
-    class DropDownSelect(disnake.ui.StringSelect):
-        def __init__(self):
-            options = [
-            disnake.SelectOption(label="Графити"),
-            disnake.SelectOption(label="Туманность"),
-            disnake.SelectOption(label="Minecraft"),
-            disnake.SelectOption(label="Minecraft_invers"),
-            disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),
-            disnake.SelectOption(label="Апокалипсис"),
-            disnake.SelectOption(label="Город"),
-            disnake.SelectOption(label="Dota2"),
-            disnake.SelectOption(label="Luffy"),
-            disnake.SelectOption(label="Природа"),
-            disnake.SelectOption(label="Некотян"),
-            disnake.SelectOption(label="Степь"),
-            disnake.SelectOption(label="Valorant"),
-            ]
-            super().__init__(
-            placeholder="Выберите товар)",
-            min_values=1,
-            max_values=1,
-            options=options,)
+            await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
     class SupportButton(disnake.ui.View):
         def __init__(self):
             super().__init__()
             self.count = 0
-            self.add_item(DropDownSelect())
         @disnake.ui.button(
             label="previous", style=disnake.ButtonStyle.green, custom_id="previous"
         )
@@ -110,7 +108,7 @@ class Shops(commands.Cog):
     async def on_ready(self):
         if not self.bot.persistent_views:
             self.bot.add_view(MainButton())
-            self.bot.add_view(SupportButton())
+            self.bot.add_view(SupportButton())  
     @commands.command(auto_sync=True)
     async def mark(self, inter: disnake.AppCmdInter): 
         #Отправка изображения с надписью МАГАЗИН
