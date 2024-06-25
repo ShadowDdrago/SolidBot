@@ -32,7 +32,7 @@ class Shops(commands.Cog):
         async def green(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[0]}" )
-            wardrobe_embed.set_footer(text = f"{self.count}/{len(self.wardrob)}")
+            wardrobe_embed.set_footer(text = f"{1}/{len(self.wardrob)}")
             await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
     global SupportButton
     class SupportButton(disnake.ui.View):
