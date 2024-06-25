@@ -32,7 +32,6 @@ class Shops(commands.Cog):
         async def green(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[0]}" )
-            emojis = inter.message.guild
             await inter.send(embed = wardrobe_embed, view=SupportButton() , ephemeral=True)
     global SupportButton
     class SupportButton(disnake.ui.View):
@@ -53,7 +52,7 @@ class Shops(commands.Cog):
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
                                      value=f"{self.wardrob[self.count]}")
-            inter.edit_original_message(embed=wardrobe_embed)
+            inter.response.edit_message(embed=wardrobe_embed)
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.persistent_views:
