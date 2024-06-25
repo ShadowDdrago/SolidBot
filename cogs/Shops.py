@@ -33,32 +33,32 @@ class Shops(commands.Cog):
                         '<:greenpoint:1255098975208607805> Некотян \n\
                         <:greenpoint:1255098975208607805> Степь \n \
                         <:greenpoint:1255098975208607805> Valorant \n']
+    class DropDownSelect(disnake.ui.StringSelect):
+        def __init__(self):
+            options = [
+                        disnake.SelectOption(label="Графити"),
+                        disnake.SelectOption(label="Туманность"),
+                        disnake.SelectOption(label="Minecraft"),
+                        disnake.SelectOption(label="Minecraft_invers"),
+                        disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),
+                        disnake.SelectOption(label="Апокалипсис"),
+                        disnake.SelectOption(label="Город"),
+                        disnake.SelectOption(label="Dota2"),
+                        disnake.SelectOption(label="Luffy"),
+                        disnake.SelectOption(label="Природа"),
+                        disnake.SelectOption(label="Некотян"),
+                        disnake.SelectOption(label="Степь"),
+                        disnake.SelectOption(label="Valorant"),
+                    ]
+            super().__init__(
+            custom_id= "DropDown",
+            placeholder="Выберите товар)",
+            min_values=1,
+            max_values=1,
+            options=options)
     class MainButton(disnake.ui.View):
         def __init__(self):
             super().__init__()
-            class DropDownSelect(disnake.ui.StringSelect):
-                def __init__(self):
-                    options = [
-                    disnake.SelectOption(label="Графити"),
-                    disnake.SelectOption(label="Туманность"),
-                    disnake.SelectOption(label="Minecraft"),
-                    disnake.SelectOption(label="Minecraft_invers"),
-                    disnake.SelectOption(label="card6 изменить нахуй мало пикселей"),
-                    disnake.SelectOption(label="Апокалипсис"),
-                    disnake.SelectOption(label="Город"),
-                    disnake.SelectOption(label="Dota2"),
-                    disnake.SelectOption(label="Luffy"),
-                    disnake.SelectOption(label="Природа"),
-                    disnake.SelectOption(label="Некотян"),
-                    disnake.SelectOption(label="Степь"),
-                    disnake.SelectOption(label="Valorant"),
-                    ]
-                    super().__init__(
-                    custom_id= "DropDown",
-                    placeholder="Выберите товар)",
-                    min_values=1,
-                    max_values=1,
-                    options=options,)
             self.add_item(DropDownSelect())
                 
 
