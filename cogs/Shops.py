@@ -72,7 +72,7 @@ class Shops(commands.Cog):
             options=options,)
     class SupportButton(disnake.ui.View):
         def __init__(self):
-            super().__init__(timeout=None)
+            super().__init__()
             self.count = 0
             self.add_item(DropDownSelect())
         @disnake.ui.button(
