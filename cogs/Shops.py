@@ -34,8 +34,8 @@ class Shops(commands.Cog):
         custom = inter.component.custom_id
         if custom == "wardrobe":
             emojis = inter.message.guild
-            wardrobe_embed = disnake.Embed(description="Shop")
-            wardrobe_embed.add_field(name = "**Фоны профыиля**" ,value=f"<:greenpoint:1255098975208607805> Туманность \n <:greenpoint:1255098975208607805> Неко тян" )
+            wardrobe_embed = disnake.Embed()
+            wardrobe_embed.add_field(name = "**Фоны профыиля**" ,value=f"<:greenpoint:1255098975208607805> Туманность \n <:yellowpoint:1255098956321521807> Неко тян" )
             await inter.send(embed = wardrobe_embed, ephemeral=True)
             
             
