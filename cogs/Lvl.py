@@ -262,8 +262,8 @@ class Lvl(commands.Cog):
         background.paste(im=profile, box=(43,56), mask=profile)
         #=====TEXT XP
         draw = ImageDraw.Draw(background)
-        font_name= ImageFont.truetype(font = "/home/container/assets/junegull rg.ttf",size = 56)
-        font_text = ImageFont.truetype(font = "/home/container/assets/junegull rg.ttf", size = 30)
+        font_name= ImageFont.truetype(font = "/home/container/assets/junegull_rg.ttf",size = 56)
+        font_text = ImageFont.truetype(font = "/home/container/assets/junegull_rg.ttf", size = 30)
         draw.text(xy = (1507, 236), font = font_name , text = f"{xp}/{((4*(lvl ** 3)) / 5 )}", fill = (255,255,255))
         #=====TEXT NAME
         draw.text(xy=(360,227),font = font_name,text= f"{member.display_name}", fill=(255,255,255))
@@ -279,7 +279,7 @@ class Lvl(commands.Cog):
         draw.arc((x-50, y-50, x+50,y+50), width= 3,start = 0, end = 360, fill=(255-p1,255-p2,255-p3))
         draw.ellipse((x-48, y-48, x+48,y+48),(p1,p2,p3),(255-p1,255-p2,255-p3))
         #=====TEXT LVL
-        font_lvl = ImageFont.truetype(font = "/home/container/assets/junegull rg.ttf", size = 52)
+        font_lvl = ImageFont.truetype(font = "/home/container/assets/junegull_rg.ttf", size = 52)
         x  = 100
         y  = 307
         draw.text(xy=(x-15*(len(str(lvl))-1),y),font = font_lvl, text=f"{lvl}", fill= (255,255,255))
