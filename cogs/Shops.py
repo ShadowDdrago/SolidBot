@@ -28,7 +28,7 @@ class Shops(commands.Cog):
             self.wardrobe_embed = disnake.Embed()
 
         @disnake.ui.button(
-            label="Гардироб", style=disnake.ButtonStyle.green
+            label="Гардироб", style=disnake.ButtonStyle.green,custom_id="gard"
         )
         async def green(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
@@ -36,7 +36,7 @@ class Shops(commands.Cog):
             emojis = inter.message.guild
             await inter.send(embed = self.wardrobe_embed, ephemeral=True)
         @disnake.ui.button(
-            label="Next", style=disnake.ButtonStyle.green
+            label="Next", style=disnake.ButtonStyle.green, custom_id="next"
         )
         async def next(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
             self.count += 1
