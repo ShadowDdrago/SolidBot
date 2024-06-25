@@ -11,7 +11,7 @@ import requests
 from confi import config
 class Shops(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:      
-        self.bot = bot
+        self.bot = bot  
     global PersistentView
     class PersistentView(disnake.ui.View):
         def __init__(self):
@@ -26,16 +26,10 @@ class Shops(commands.Cog):
                         <:yellowpoint:1255098956321521807> Dota 2 \n\
                         <:greenpoint:1255098975208607805> Valorant \n\
                         <:greenpoint:1255098975208607805> Закат \n\
-                        ', 
-                        '']
+                        ']
             wardrobe_embed = disnake.Embed()
             wardrobe_embed.add_field(name = "**Фоны профыиля**" ,
-                                     value=f"<:greenpoint:1255098975208607805> Туманность \n 
-                                     <:yellowpoint:1255098956321521807> Неко тян\n\
-                                     <:yellowpoint:1255098956321521807> Dota 2 \n\
-                                     <:greenpoint:1255098975208607805> Valorant \n\
-                                     <:greenpoint:1255098975208607805> Закат \n\
-                                     " )
+                                     value=f"{Wardrob[0]}" )
             emojis = inter.message.guild
             await inter.send(embed = wardrobe_embed, ephemeral=True)
     @commands.Cog.listener()
