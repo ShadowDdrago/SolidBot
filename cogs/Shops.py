@@ -47,7 +47,8 @@ class Shops(commands.Cog):
             wardrobe_embed = disnake.Embed().add_field(name = "**Фоны профиля**" ,
                                      value=f"{wardrob[0]}" )
             wardrobe_embed.set_footer(text = f"{1}/{len(wardrob)}")
-            await inter.send(embed = wardrobe_embed, view=[SupportButton(), DropDownView()] , ephemeral=True)
+            await inter.send(embed = wardrobe_embed, view=DropDownView() , ephemeral=True)
+            await inter.send(view=SupportButton())
     class SupportButton(disnake.ui.View):
         def __init__(self):
             super().__init__(timeout=None)
