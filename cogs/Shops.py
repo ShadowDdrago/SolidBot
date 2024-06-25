@@ -51,14 +51,20 @@ class Shops(commands.Cog):
         def __init__(self):
             super().__init__(timeout=None)
             self.count = 0
-            self.options = [[disnake.SelectOption(label="Апокалипсис"),
+            self.options = [[
+                    disnake.SelectOption(label="Графити"),
+                    disnake.SelectOption(label="Туманность"),
+                    disnake.SelectOption(label="Minecraft"),
+                    disnake.SelectOption(label="Minecraft_invers"),
+                    disnake.SelectOption(label="card6 изменить нахуй мало пикселей")],
+                    [disnake.SelectOption(label="Апокалипсис"),
                     disnake.SelectOption(label="Город"),
                     disnake.SelectOption(label="Dota2"),
                     disnake.SelectOption(label="Luffy"),
-                    disnake.SelectOption(label="Природа"),],
+                    disnake.SelectOption(label="Природа")],
                     [disnake.SelectOption(label="Некотян"),
                     disnake.SelectOption(label="Степь"),
-                    disnake.SelectOption(label="Valorant"),
+                    disnake.SelectOption(label="Valorant")
                     ]]
             self.add_item(DropDownSelect())
         class DropDownSelect(disnake.ui.StringSelect):
@@ -90,7 +96,8 @@ class Shops(commands.Cog):
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             DropDownSelect().options = self.options[self.count]
-            await inter.response.edit_message(embed=wardrobe_embed)
+            await inter.response.edit_message(embed=wardrobe_embed, view=SupportButton())
+            
         @disnake.ui.button(
             label="Next", style=disnake.ButtonStyle.green, custom_id="next"
         )
@@ -106,7 +113,7 @@ class Shops(commands.Cog):
                                      value=f"{text}")
             wardrobe_embed.set_footer(text = f"{self.count+1}/{len(wardrob)}")
             DropDownSelect().options = self.options[self.count]
-            await inter.response.edit_message(embed=wardrobe_embed)
+            await inter.response.edit_message(embed=wardrobe_embed,view=SupportButton())
     
     @commands.Cog.listener()
     async def on_ready(self):
