@@ -35,7 +35,7 @@ class Shops(commands.Cog):
                         <:greenpoint:1255098975208607805> Valorant \n']
     class MainButton(disnake.ui.View):
         def __init__(self):
-            super().__init__(timeout=None)
+            super().__init__()
             class DropDownSelect(disnake.ui.StringSelect):
                 def __init__(self):
                     options = [
