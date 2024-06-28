@@ -60,7 +60,7 @@ async def on_member_join(member: disnake.Member):
                 if member == bot.user:
                     pass
                 
-                elif cursor.execute("SELECT member_id FROM `s168073_members`.`members` WHERE member_id = %s ", str(member.id)) == None:
+                else:
                     cursor.execute("INSERT INTO `s168073_members`.`members`(member_id, lvl, money, exp, custom) VALUE (%s, '0' , '0', '0',%s)", (str(member.id), str({"card": "card5"})))
                     db.commit()
         finally:
